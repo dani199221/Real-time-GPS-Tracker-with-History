@@ -1,0 +1,2 @@
+AT+CREG?
+http://www.expertcore.org/viewtopic.php?f=18&t=3549

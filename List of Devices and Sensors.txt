@@ -1,0 +1,3 @@
+SIM900D - GSM Module
+CMPS09 - Compass
+HOLUX M-89 - GPS

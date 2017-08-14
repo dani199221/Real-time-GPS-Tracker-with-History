@@ -1,0 +1,86 @@
+ÀÄmain
+   ÃÄMAIN  0/414  Ram=1
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄ@PSTRINGC_9600_31774_31775  0/36  Ram=2
+   ³  ÃÄ@delay_ms1  0/42  Ram=1
+   ³  ÃÄ@delay_ms1  0/42  Ram=1
+   ³  ÃÄgetGPS  0/110  Ram=4
+   ³  ³  ÃÄinitGPS  0/24  Ram=0
+   ³  ³  ³  ÃÄ@PSTRINGC_967  0/32  Ram=2
+   ³  ³  ³  ³  ÀÄ@PUTCHAR_3_  0/84  Ram=1
+   ³  ³  ³  ÀÄ@PSTRINGC_967  0/32  Ram=2
+   ³  ³  ³     ÀÄ*
+   ³  ³  ÃÄ@GETCH_3_  0/126  Ram=3
+   ³  ³  ÃÄ@GETCH_3_  0/126  Ram=3
+   ³  ³  ÀÄstrstr  0/144  Ram=9
+   ³  ÃÄ@PSTRINGR_9600_31774_31775  0/38  Ram=2
+   ³  ÃÄparseGPS  0/1582  Ram=36
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrncpy  0/146  Ram=11
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrtof  0/592  Ram=19
+   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
+   ³  ³  ³  ÃÄ@DIVFF  0/426  Ram=14
+   ³  ³  ³  ÃÄ@ADDFF  0/824  Ram=16
+   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
+   ³  ³  ³  ÃÄ@ADDFF  0/824  Ram=16
+   ³  ³  ³  ÀÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrtof  0/592  Ram=19
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrtof  0/592  Ram=19
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrtof  0/592  Ram=19
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄstrchr  0/68  Ram=4
+   ³  ³  ÃÄstrncpy  0/146  Ram=11
+   ³  ³  ÃÄ@FLT  0/122  Ram=10
+   ³  ³  ÃÄ@FLT  0/122  Ram=10
+   ³  ³  ÃÄgpsDegrees  (Inline)  Ram=14
+   ³  ³  ³  ÃÄ@DIVFF  0/426  Ram=14
+   ³  ³  ³  ÃÄ@SFTOI  0/60  Ram=4
+   ³  ³  ³  ÃÄ@MUL1616  0/34  Ram=5
+   ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
+   ³  ³  ³  ÃÄ@ADDFF  0/824  Ram=16
+   ³  ³  ³  ÃÄ@DIVFF  0/426  Ram=14
+   ³  ³  ³  ÃÄ@ITOF  0/54  Ram=2
+   ³  ³  ³  ÀÄ@ADDFF  0/824  Ram=16
+   ³  ³  ÃÄgpsDegrees  (Inline)  Ram=14
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄgpsTime  0/214  Ram=5
+   ³  ³  ÃÄgpsDate  0/314  Ram=5
+   ³  ³  ÃÄ@PSTRINGCN_1083  0/40  Ram=3
+   ³  ³  ³  ÀÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ÃÄ@PRINTF_L32D_1083FPFPF  0/424  Ram=13
+   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ³  ÃÄ@FTOSD  0/68  Ram=5
+   ³  ³  ³  ÃÄ@DIV3232  0/148  Ram=13
+   ³  ³  ³  ÃÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ³  ÃÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ³  ÃÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ³  ÃÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ³  ÀÄ@DIV3232  0/148  Ram=13
+   ³  ³  ÃÄ@PSTRINGCN_1083  0/40  Ram=3
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PRINTF_L32D_1083FPFPF  0/424  Ram=13
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PSTRINGCN_1083  0/40  Ram=3
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PSTRINGR_1083  0/36  Ram=2
+   ³  ³  ³  ÀÄ@SPRINTF  0/32  Ram=1
+   ³  ³  ÃÄ@PSTRINGCN_1083  0/40  Ram=3
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÀÄ@PSTRINGR_1083  0/36  Ram=2
+   ³  ³     ÀÄ*
+   ³  ÀÄ@PSTRINGR_9600_31774_31775  0/38  Ram=2
+   ÃÄgsmInt  0/58  Ram=2
+   ³  ÀÄ@GETCH_BIU_1  0/24  Ram=0
+   ÀÄpcInt  0/12  Ram=0
+      ÀÄ@GETCH_BIU_2  0/24  Ram=0

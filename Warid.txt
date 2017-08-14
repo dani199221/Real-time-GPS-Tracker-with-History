@@ -1,0 +1,19 @@
+15 MB	Rs.11.99	SMS 15 MB to 7777
+Unlim	Rs.9.99	        SMS UL to 7777
+
+http://www.waridtel.com/products/unlimited_internet_bucket.php
+
+
+Internet Settings______
+APN	warid
+Login name	< blank >
+password	< blank >
+Wap gateway IP	10.4.2.1
+Port (if required)	8080
+
+WAP Settings___________
+APN	wap.warid
+Login name	< blank >
+password	< blank >
+Wap gateway IP	10.4.2.1
+Port (if required)	8080

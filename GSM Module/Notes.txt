@@ -1,0 +1,124 @@
+//Disable Echo
+ATE0
+
+//Short Response
+ATV0
+
+//Dail
+ATD+923004600644;
+
+//Check Connection
+AT+CREG?
+AT+CSQ
+
+AT+CGATT=1
+
+
+http://m2msupport.net/m2msupport/atcreg-network-registration/
+
+
+
+AT+CREG? //When the module is connected the answer is "+CREG: 0,1" or "+CREG: 0,5".
+AT+CREG=?
+
+___________________________________________________-
+after this, you will be automatically notified when the module registeres
++CREG: 1,1
+
+and when it deregisteres
++CREG: 1,0
+
+Now you see, that the first parameter is 1. This was set by command AT+CREG=1.
+
+
+___________________________________________________-
+ATV1
+
+
+SMS___________________
+AT+CMGF=1
+AT+CMGS="03004600644"
+AT+CMGS="03344546954"//Massab
+AT+CMGS="03335058626"//Dani
+AT+CMGS="03074476155"//TA
+______________________
+
+CALL__________________
+ATD + +923004600644;
+ATH
+______________________
+
+Sim insert status
+http://raviyp.in/index.php/embedded/163-detecting-whether-sim-card-is-inserted-in-sim300
+
+
+AT+CSMINS?
+at+cpin?
+AT+CGATT = 1
+
+
+
+
+
+
+___WORKSPACE_____
+AT+CDNSCFG="8.8.8.8","8.8.4.4"
+
+AT+CDNSCFG=1,"IP","209.212.96.1"
+
+_TA______________________
+AT+CGATT=1
+AT+CGDCONT=1,"IP","wap.warid"
+AT+CIFSR
+AT+CIPSTART="TCP","www.google.com","80"
+
+
+
+_____________________________________
+AT+CSTT=warid,,
+
+
+
+
+
+
+_INTERNET SETTINGS_______________________
+
+
+Name: zonginternet (anything you like)
+APN: zonginternet or zongwap
+MCC: 410 (should be there by default)
+MNC: 01 (use whatever is there by default)
+
+
+
+
+Name: Warid Internet (anything you like)
+APN: warid or waridwap
+MCC: 410 (should be there by default)
+MNC: 07 (use whatever is there by default)
+APN type: default
+
+
+
+AT+CGATT=1
+AT+CGDCONT=1,"IP","warid"
+AT+CIFSR
+AT+CIPSTART="TCP","www.google.com","80"
+
+
+AT+CSTT="warid","",""
+
+AT+CSTT?
+
+
+wap.warid
+waridwap
+warid
+
+AT+CPOWD=1
+
+
+
+__Commit Settings To Rom___
+AT&W

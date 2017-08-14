@@ -1,0 +1,16 @@
+Structure of DataBase:
+Database Name: gps
+Table Name: gps
+No of Columbs: 5
+
+Name: id, Type: INT, Attributes: Unsigned, Index: Primary, Auto_Increment: On
+Name: lat, Type: VarChar, Length: 20
+Name: long, Type: VarChar, Length: 20
+Name: time, Type: TIMESTAMP, Default: CURRENT_TIMESTAMP
+Name: speed, Type: Int
+
+
+
+INSERT INTO `gps`.`tt` (`id`, `lat`, `long`, `date`, `time`) VALUES (NULL, '11', '12', '2013-10-19', '04:04:04');
+
+INSERT INTO `gps`.`tt` (`id`, `lat`, `long`, `date`, `time`) VALUES (NULL, '77', '77', CURDATE(), CURTIME());

@@ -1,0 +1,2 @@
+Runs at 4800 Baudrate.
+Gives GGA, RMC, VTG

@@ -1,0 +1,307 @@
+#include <main.h>
+#include <string.h>
+#INCLUDE <stdlib.h>
+
+#define gpsTX PIN_D2
+#define gpsRX PIN_D3
+
+#define LED0 PIN_C0
+#define piLED PIN_C1
+#define gpsLED PIN_C2
+#define heart PIN_C3
+
+/*
+UART1 = RX=RC7, TX=RC6
+UART2 = RX=RD7, TX=RD6
+*/
+/*1200 to 115200*/
+#use rs232(baud=115200,parity=N,bits=8,uart1,stream = pi,ERRORS)
+#use rs232(baud=9600,parity=N,bits=8,uart2,stream = pc,ERRORS)
+#use rs232(baud=9600,parity=N,xmit=gpsTX,rcv=gpsRX,bits=8,stream=gps,timeout=500,errors)
+
+//Global Variables
+
+//Function Prototypes
+void getGPS(char*);
+void initGPS();
+short getParsedGPS(char*, char*);
+short parseGPS(char*,char*);
+unsigned int32 getInt(char*);
+short delay(unsigned int16);
+void gpsDegrees(float& x, char& dir);
+short confirmATResponse(char* expected, unsigned int16 timeOut=500);
+
+struct GPS_DATA{
+   float latitude;
+   float longitude;
+   char time[9];
+   float speedF;
+   // char speedC[];
+   char date[11];
+} gpsData;
+
+
+char piBuffer[100];
+short piFlag = 0;
+#INT_RDA
+void piSerInt(VOID) {
+   static char t;
+   static unsigned int indx = 0;
+   static short save = 0;
+   
+   t=getc(pi);
+   if(t=='<'){//Start of Line
+      indx=0;
+      save=1;
+      return;
+   }
+   if(save){
+      if(t=='>'){//End of Line
+         piBuffer[indx]=0;
+         save=0;
+         piFlag=1;
+      }else{
+         piBuffer[indx++]=t;
+      }
+   }
+}
+char OK[3]="OK";
+char ERROR[]="ERROR";
+
+short checkCom(){
+   piFlag=0;
+   fprintf(pi,"AT\r\n");
+   //while(!piFlag);
+   return confirmATResponse(OK);
+   /*
+   if(!strcmp(piBuffer,OK))//Returns 0 if strings are equal
+      return true;
+   else
+      return false;
+      */
+}
+
+void waitForPi(){
+   while(!checkCom()){
+      output_toggle(piLED);
+      fprintf(pc,"Waiting For Pi\r\n");
+      delay_ms(500);
+   }
+   output_high(piLED);
+}
+
+char rawGPS[100]="NULL";
+char parsedGPS[100]="lat=123&lng=456";
+void waitForGPS(){
+   while(!getParsedGPS(rawGPS,parsedGPS)){
+      output_toggle(heart);
+      output_toggle(gpsLED);
+      fprintf(pc,"RAW: %s\n\r",rawGPS);
+      fprintf(pc,"PAR: %s\n\r",parsedGPS);
+      delay_ms(500);
+   }
+}
+/*
+short delay(unsigned int16 delayCount){
+   while(recieveFlag1!=1 && delayCount>0){
+      delayCount--;
+      delay_ms(1);
+   }
+   return(delayCount!=0);//returns 0 if nothing received(delay==0)
+}
+*/
+#INT_RDA2
+void pcInt(VOID) {
+   static char c;
+   c=getc(pc);
+   fputc(c,pc);
+   fputc(c,pi);
+}
+
+short confirmATResponse(char* expected, unsigned int16 timeOut=500){
+   while(timeOut>0){
+      if(piFlag){
+         if(strstr(piBuffer,expected)){
+            delay_ms(200);//To be on the save side
+            return 1;
+         }else if(strstr(piBuffer,ERROR)){
+            return 0;
+         }
+      }
+      timeOut--;
+      delay_ms(1);
+   }
+   return 0;
+}
+
+short getParsedGPS(char* raw, char* parsed){
+   getGPS(raw);
+   return parseGPS(raw,parsed);
+}
+
+void main() {
+/*
+1. Turn On Pi
+2. Wait for GPS fix
+3. Wait for Pi to come online
+*/
+   for(int i=0;i<7;i++){
+      output_toggle(heart);
+      output_toggle(gpsLED);
+      output_toggle(piLED);
+      delay_ms(100);
+   }
+   
+   disable_interrupts(GLOBAL);
+   port_b_pullups(TRUE);
+   delay_ms(10);
+   clear_interrupt(INT_EXT); 
+   clear_interrupt(INT_EXT1); 
+   clear_interrupt(INT_EXT2);
+   enable_interrupts(GLOBAL); 
+   
+   output_high(LED0);
+   output_low(piLED);
+   output_low(heart);
+   output_low(gpsLED);
+   enable_interrupts (INT_RDA); // Enables UART 1 Interrupts
+   enable_interrupts (INT_RDA2); //Enables UART 2 Interrupts
+   enable_interrupts(GLOBAL);
+   
+   fprintf(pc,"_________________\n\n\rStarting Up!\r\n");
+   
+   fprintf(pc,"Initializing GPS\r\n");
+   initGPS();
+   
+   fprintf(pc,"Powering Up Raspberry Pi\r\n");
+   
+   fprintf(pc,"Waiting For GPS Fix\r\n");
+   waitForGPS();
+   fprintf(pc,"GPS Online\r\n");
+   
+   
+   waitForPi();
+   fprintf(pc,"Raspberry Pi Online\r\n");
+   
+//   delay_ms(6000);//Wait for the device to Power Up;
+   
+   fprintf(pc,"Stating While Loop\r\n");
+   //Infinite While Loop
+   while(TRUE){
+         fprintf(pc,"In LOOP\r\n");
+         
+         if(getParsedGPS(rawGPS,parsedGPS)){
+            //fprintf(pc,"%s\r\n",parsedGPS);
+            fprintf(pc,"POST,%s\r\n",parsedGPS);
+            fprintf(pi,"POST,%s\r\n",parsedGPS);
+            if(piFlag){
+               fprintf(pc,"%s\r\n",piBuffer);
+               piFlag=0;
+            }
+            output_high(gpsLED);
+         }else{
+            output_low(gpsLED);
+            fprintf(pc,"GPS Fail\r\n");
+         }
+         output_toggle(heart);
+         delay_ms(500);
+   }
+
+}
+
+void initGPS(){
+   //RMC Sentence Only
+   fprintf(gps,"$PMTK314,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
+   //Increase Frequency
+   fprintf(gps,"$PMTK220,200*2C");
+   
+   
+}
+
+void getGPS(char* buffer){
+   static char c;
+   static unsigned int indx=0;
+   static char gprmc[8]="$GPRMC";
+   static short fail = 0;
+   fail=0;
+   do{
+      if(fail){initGPS();}
+      indx=0;
+      do{
+         c=getc(gps);
+      }while(c!='$');
+      while(c!='\r'){
+         buffer[indx]=c;
+         c=getc(gps);
+         indx++;
+      }
+      buffer[indx]=0;
+      fail=1;
+   }while(!strstr(buffer, gprmc));
+}
+
+short parseGPS(char* raw, char* parsed){
+   static char* p = 0;
+   static short valid=0;
+   static float longitude;
+   static char NS;
+   static float latitude;
+   static char EW;
+   
+   
+   //Time
+   p = strchr(raw, ',')+1;
+   //strncpy(time,p,6);
+   
+   //Validity
+   p = strchr(p, ',')+1;
+   if (p[0] == 'A'){
+      valid=1;
+   }else{
+      valid=0;
+      return 0;
+   }
+   
+   //Latitude
+   p = strchr(p, ',')+1;
+   latitude = atof(p);
+   
+   //North-South
+   p = strchr(p, ',')+1;
+   if (p[0] == 'N') NS = 'N';
+   else if (p[0] == 'S') NS = 'S';
+   
+   //Longitude
+   p = strchr(p, ',')+1;
+   longitude = atof(p);
+   
+   //East-West
+   p = strchr(p, ',')+1;
+   if (p[0] == 'W') EW = 'W';
+   else if (p[0] == 'E') EW = 'E';
+   
+   gpsDegrees(latitude,NS);
+   gpsDegrees(longitude,EW);
+   
+   gpsData.longitude=longitude;
+   gpsData.latitude=latitude;
+   
+   sprintf(parsed,"%6.4f,%6.4f",latitude,longitude);
+   //output_high(gpsLED);
+   return 1;
+}
+
+void gpsDegrees(float& x, char& dir){
+   unsigned int deg = (unsigned int)(x/100);
+   // fprintf(pc,"Deg: %u\n\r",deg);
+   float min=x-((long)deg*100);
+   // fprintf(pc,"Min: %f\n\r",min);
+   
+   x=(min/60)+deg;
+   if(dir=='S'||dir=='W') x=-x;
+}
+
+unsigned int32 getInt(char* p){
+   float r = atof(p);
+   return r;
+}

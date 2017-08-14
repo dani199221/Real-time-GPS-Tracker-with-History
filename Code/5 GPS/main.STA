@@ -1,0 +1,108 @@
+
+ROM used:   7096/16384 (22%)
+            7096/16384 (22%) including unused fragments
+
+            2.2 Average locations per line
+            12.7 Average locations per statement
+
+RAM used:   248/1536 (16%) at main() level
+            518/1536 (34%) worst case
+
+Stack used: 6 worst case (4 in main + 2 for interrupts)
+Stack size: 31
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  394   199  36  main.c
+   14     0   0  main.h
+ 1000     0   0  C:\Program Files (x86)\PICC\Devices\18F45K22.h
+  423     0   0  C:\Program Files (x86)\PICC\Drivers\string.h
+   32     0   0  C:\Program Files (x86)\PICC\Drivers\stddef.h
+   28     0   0  C:\Program Files (x86)\PICC\Drivers\ctype.h
+ 1351   359  64  C:\Program Files (x86)\PICC\Drivers\stdlib.h
+----- -----
+ 3242   558 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     42   0    1             @delay_ms1
+0    146   1   11   318  6.5  strncpy
+0     68   0    4   153  4.7  strchr
+0    144   1    9   318  6.5  strstr
+0    246   2   11             @MULFF
+0     54   0    2             @ITOF
+0    824   6   16             @ADDFF
+0    426   3   14             @DIVFF
+0    592   4   19  1542 12.4  strtof
+0     34   0    5             @MUL1616
+0     24   0    0             @GETCH_BIU_1
+0     24   0    0             @GETCH_BIU_2
+0     84   1    1             @PUTCHAR_3_
+0    126   1    3             @GETCH_3_
+0     58   0    2   295  4.2  gsmInt
+0      4   0    0             @const1017
+0      6   0    0             @const1020
+0      6   0    0             @const1022
+0     12   0    0    29  1.6  pcInt
+0      4   0    0             @const1030
+0     36   0    2             @PSTRINGC_9600_31774_31775
+0     14   0    0             @const1032
+0     10   0    0             @const1033
+0      4   0    0             @const1034
+0     22   0    0             @const1035
+0     10   0    0             @const1036
+0      4   0    0             @const1037
+0     32   0    0             @const1038
+0     10   0    0             @const1039
+0      4   0    0             @const1040
+0     32   0    0             @const1041
+0     10   0    0             @const1042
+0      4   0    0             @const1043
+0     14   0    0             @const1044
+0     10   0    0             @const1045
+0     14   0    0             @const1050
+0     14   0    0             @const1051
+0    414   3    1   516  3.3  MAIN
+0     16   0    0    50  1.5  @const1055
+0     38   0    2    50  1.5  @PSTRINGR_9600_31774_31775
+0     24   0    0    50  1.5  initGPS
+0     52   0    0   592  6.8  @const1061
+0     32   0    2   592  6.8  @PSTRINGC_967
+0     16   0    0   592  6.8  @const1063
+0    110   1    4   592  6.8  getGPS
+0   1582  11   36  2429  8.1  parseGPS
+0    122   1   10   273  6.5  @FLT
+0     28   0    0   273  6.5  @const1081
+0     32   0    1   273  6.5  @SPRINTF
+0     40   0    3    69  2.8  @PSTRINGCN_1083
+0     68   0    5    69  2.8  @FTOSD
+0    148   1   13   526  3.3  @DIV3232
+0    424   3   13   526  3.3  @PRINTF_L32D_1083FPFPF
+0     36   0    2   526  3.3  @PSTRINGR_1083
+0     60   0    4   526  3.3  @SFTOI
+ Inline        14   291  6.5  gpsDegrees
+0    214   2    5   282  2.8  gpsTime
+0    314   2    5   466  2.9  gpsDate
+ Inline         0    69  2.8  @cinit1
+
+Program metrics:
+    Functions               28
+    Statements              558
+    Comments                739
+    Volume (V)              21449
+    Difficulty (D)          130.8
+    Effort to implement (E) 2805672
+    Time to implement (T)   43 hours, 18 minutes
+    Est Delivered Bugs (B)  7
+    Cyclomatic Complexity   43
+    Maintainability (MI)    137
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-000A0   154  0  
+000A2-07FFE  6938  25668  
+
+
+
